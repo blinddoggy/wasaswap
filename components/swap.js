@@ -4,41 +4,40 @@ import PropTypes from "prop-types";
 const Swap = ({ className = "" }) => {
   return (
     <section
-      className={`flex flex-col items-start justify-start pt-0 px-0 pb-[120px] box-border max-w-full text-left text-221xl font-space-grotesk lg:pb-[78px] mq825:pb-[51px] ${className}`}
+      className={`flex flex-col items-center justify-center pt-0 px-0 pb-[120px] box-border max-w-full text-left text-221xl font-space-grotesk lg:pb-[78px] mq825:pb-[51px] ${className}`}
     >
-      <div className="h-[900px] w-full bg-black1 overflow-hidden flex flex-col items-center justify-start relative max-w-full lg:h-auto">
-        
-        <div className="mt-[-50px] w-full flex flex-col items-center justify-start py-0 px-5 lg:px-16 xl:px-32 gap-4 opacity-100 max-w-[136%] z-1">
-          <div className="w-full overflow-x-auto flex flex-row items-start justify-start py-0 px-5 lg:px-[83px] xl:px-[167px] gap-[20px]">
-            <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+      <div className="h-auto w-full bg-black1 overflow-hidden flex flex-col items-center justify-start relative max-w-full lg:h-auto">
+        <div className="w-full flex flex-col items-center justify-start py-0 px-5 lg:px-16 xl:px-32 gap-4 opacity-100 z-1">
+          <div className="w-full overflow-x-auto flex flex-row items-center justify-center py-0 px-5 lg:px-[83px] xl:px-[167px] gap-[20px]">
+            <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
               888
             </b>
-            <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+            <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
               888
             </b>
-            <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+            <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
               888
             </b>
-            <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+            <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
               888
             </b>
           </div>
           
-          <div className="w-full flex flex-row items-start justify-start gap-4 flex-wrap">
+          <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-4 flex-wrap">
             <div className="w-full lg:w-1/2 flex flex-col items-start justify-start relative gap-4">
-              <b className="text-white absolute !m-0 top-[36px] left-[-297px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+              <b className="text-white absolute top-[36px] left-[-297px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                 888
               </b>
-              <b className="text-white absolute !m-0 top-[36px] right-[-313px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+              <b className="text-white absolute top-[36px] right-[-313px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                 888
               </b>
-              <b className="text-white absolute !m-0 top-[calc(50%_-_84px)] left-[-99.5px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+              <b className="text-white absolute top-[calc(50%_-_84px)] left-[-99.5px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                 888
               </b>
-              <b className="text-white absolute !m-0 top-[calc(50%_-_84px)] right-[-115.5px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+              <b className="text-white absolute top-[calc(50%_-_84px)] right-[-115.5px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                 888
               </b>
-              <b className="text-white absolute !m-0 bottom-[36px] left-[-297px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+              <b className="text-white absolute bottom-[36px] left-[-297px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                 888
               </b>
               <div className="flex-1 rounded-21xl flex flex-col items-start justify-start py-[38px] px-[39px] box-border gap-[40px] bg-[url('/frame-188@3x.png')] bg-cover bg-no-repeat bg-[top] text-base text-white">
@@ -203,14 +202,14 @@ const Swap = ({ className = "" }) => {
             </div>
             <div className="w-full lg:w-1/2 flex flex-col items-start justify-start pt-9 px-0 pb-0 box-border flex-wrap">
               <div className="self-stretch flex flex-row items-start justify-start relative">
-                <b className="text-white absolute !m-0 bottom-[0px] left-[-197.5px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+                <b className="text-white absolute bottom-[0px] left-[-197.5px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                   888
                 </b>
                 <div className="flex-1 flex flex-col items-end justify-start gap-[40px] flex-wrap">
                   <div className="self-stretch flex flex-row items-start justify-start gap-[37px] flex-wrap">
                     <div className="flex-1 flex flex-col items-start justify-start pt-[140px] px-0 pb-0 box-border">
                       <div className="self-stretch flex flex-row items-start justify-start relative">
-                        <b className="text-white absolute !m-0 top-[-140px] right-[-17px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+                        <b className="text-white absolute top-[-140px] right-[-17px] tracking-[-0.12em] leading-[168px] [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                           888
                         </b>
                         <b className="flex-1 relative text-xl leading-[24px] inline-block text-gray-400 z-[2]">
@@ -218,25 +217,25 @@ const Swap = ({ className = "" }) => {
                         </b>
                       </div>
                     </div>
-                    <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+                    <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                       888
                     </b>
                   </div>
                   <div className="self-stretch flex flex-row items-start justify-start">
                     <div className="flex flex-row items-start justify-start gap-[20px] flex-wrap">
-                      <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+                      <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                         888
                       </b>
-                      <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+                      <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                         888
                       </b>
                     </div>
                   </div>
                   <div className="flex flex-row items-start justify-start gap-[20px] flex-wrap">
-                    <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+                    <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                       888
                     </b>
-                    <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+                    <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
                       888
                     </b>
                   </div>
@@ -245,7 +244,7 @@ const Swap = ({ className = "" }) => {
                   <span className="font-light">{`buy `}</span>
                   <b>wazaa</b>
                 </h1>
-                <div className="flex-1 absolute !m-0 bottom-[140px] left-[0.5px] text-white z-[2] text-[1rem] md:text-[1.25rem] lg:text-[1.5rem] xl:text-[1.75rem]">
+                <div className="flex-1 absolute bottom-[140px] left-[0.5px] text-white z-[2] text-[1rem] md:text-[1.25rem] lg:text-[1.5rem] xl:text-[1.75rem]">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Maecenas mollis dui mi, sed varius lacus rutrum at. Etiam eget
                   consectetur elit. Ut nunc sem, tincidunt id turpis sit amet,
@@ -255,17 +254,17 @@ const Swap = ({ className = "" }) => {
               </div>
             </div>
           </div>
-          <div className="w-full overflow-x-auto flex flex-row items-start justify-start py-0 px-5 lg:px-[83px] xl:px-[167px] gap-[20px]">
-            <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+          <div className="w-full overflow-x-auto flex flex-row items-center justify-center py-0 px-5 lg:px-[83px] xl:px-[167px] gap-[20px]">
+            <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
               888
             </b>
-            <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+            <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
               888
             </b>
-            <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+            <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
               888
             </b>
-            <b className="text-white shrink-0 [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
+            <b className="text-white [-webkit-text-stroke:1px_#9945ff] text-[5rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]">
               888
             </b>
           </div>

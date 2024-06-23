@@ -4,16 +4,16 @@ import PropTypes from "prop-types";
 const Hero = ({ className = "" }) => {
   return (
     <div
-      className={`self-stretch flex flex-row flex-wrap items-start justify-start gap-[20px] max-w-full text-left text-xl text-gray-400 font-space-grotesk ${className}`}
+      className={`self-stretch flex flex-row flex-wrap items-start justify-center gap-[40px] max-w-full text-left text-xl text-gray-400 font-space-grotesk ${className}`}
     >
-      <div className="flex-1 rounded-21xl bg-black1 box-border overflow-hidden flex flex-col items-start justify-center pt-0 px-0 pb-[0.5px] relative gap-[40px] min-w-[435px] min-h-[800px] max-w-full border-[1px] border-solid border-gray-100 mq825:gap-[20px] mq825:min-w-full">
+      <div className="flex-1 rounded-21xl bg-black1 box-border overflow-hidden flex flex-col items-start justify-center p-10 relative gap-[40px] min-w-[435px] min-h-[800px] max-w-full border-[1px] border-solid border-gray-100 mq825:gap-[20px] mq825:min-w-full">
         <img
-          className="w-[1200px] h-[1323.5px] absolute !m-[0] bottom-[0.5px] left-[calc(50%_-_600px)] object-cover"
+          className="w-[1200px] h-[1323.5px] absolute bottom-0 left-[calc(50%_-_600px)] object-cover"
           alt=""
           src="/img-0161-1@2x.png"
         />
-        <div className="w-[510px] flex flex-col items-start justify-start max-w-full z-[1]">
-          <b className="self-stretch relative leading-[24px] mq450:text-base mq450:leading-[19px]">
+        <div className="w-full flex flex-col items-start justify-start max-w-full z-[1] p-5 bg-black1 rounded-21xl">
+          <b className="self-stretch relative leading-[24px] text-gray-400 mq450:text-base mq450:leading-[19px]">
             about
           </b>
           <h1 className="m-0 self-stretch relative text-61xl leading-[80px] text-green font-inherit mq450:text-5xl mq450:leading-[32px] mq825:text-21xl mq825:leading-[48px]">
@@ -25,7 +25,7 @@ const Hero = ({ className = "" }) => {
             killer
           </h1>
         </div>
-        <div className="w-[510px] flex flex-row items-start justify-center max-w-full z-[1] text-white font-archivo">
+        <div className="w-full flex flex-row items-start justify-center max-w-full z-[1] text-white font-archivo p-5">
           <div className="flex-1 relative tracking-[0.02em] leading-[32px] font-light inline-block max-w-full mq450:text-base mq450:leading-[26px]">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
             convallis urna diam, in gravida neque tempus eget. Phasellus rutrum,
@@ -33,7 +33,7 @@ const Hero = ({ className = "" }) => {
             erat vitae metus. 
           </div>
         </div>
-        <div className="w-96 flex flex-row items-start justify-center gap-[20px] max-w-full z-[1] mq450:flex-wrap">
+        <div className="w-96 flex flex-row items-start justify-center gap-[20px] max-w-full z-[1] mq450:flex-wrap p-5">
           <Button
             className="h-11 flex-1 min-w-[129px]"
             endIcon={<img width="24px" height="24px" src="/content-copy.svg" />}
@@ -74,8 +74,8 @@ const Hero = ({ className = "" }) => {
           </Button>
         </div>
       </div>
-      <div className="h-[800px] flex-1 rounded-21xl box-border overflow-hidden flex flex-row items-start justify-start relative min-w-[435px] max-w-full text-401xl text-[transparent] font-rubik-mono-one border-[1px] border-solid border-gray-100 mq825:min-w-full">
-        <div className="h-[4000px] w-[4000px] absolute !m-[0] top-[-1797px] left-[-1723px] z-[1]">
+      <div className="flex-1 rounded-21xl box-border overflow-hidden flex flex-row items-start justify-start relative min-w-[435px] max-w-full text-401xl text-[transparent] font-rubik-mono-one border-[1px] border-solid border-gray-100 mq825:min-w-full min-h-[800px]">
+        <div className="h-[4000px] w-[4000px] absolute top-[-1797px] left-[-1723px] z-[1]">
           <img
             className="absolute top-[calc(50%_-_2000px)] left-[calc(50%_-_2000px)] w-full h-full object-cover"
             alt=""
@@ -83,11 +83,11 @@ const Hero = ({ className = "" }) => {
           />
           <div className="absolute top-[calc(50%_-_315px)] left-[calc(50%_-_454px)] bg-black1 w-[1024px] h-[1024px] opacity-[0.2] z-[1]" />
         </div>
-        <div className="w-[962px] absolute !m-[0] bottom-[-120px] left-[calc(50%_-_481px)] tracking-[-0.13em] leading-[420px] inline-block [-webkit-text-stroke:1px_#fff] opacity-[0.4] z-[2] mq450:text-86xl mq450:leading-[168px] mq825:text-149xl mq825:leading-[252px]">
+        <div className="w-[962px] absolute bottom-[-120px] left-[calc(50%_-_481px)] tracking-[-0.13em] leading-[420px] inline-block [-webkit-text-stroke:1px_#fff] opacity-[0.4] z-[2] mq450:text-86xl mq450:leading-[168px] mq825:text-149xl mq825:leading-[252px]">
           888
         </div>
         <img
-          className="h-[631px] w-[732.1px] absolute !m-[0] top-[84.1px] left-[-31.1px] object-contain z-[3]"
+          className="h-[631px] w-[732.1px] absolute top-[84.1px] left-[-31.1px] object-contain z-[3]"
           loading="lazy"
           alt=""
           src="/mask1@2x.png"

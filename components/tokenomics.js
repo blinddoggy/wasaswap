@@ -65,17 +65,18 @@ const Tokenomics = ({ className = "" }) => {
             />
           </div>
         </div>
-        <div className="h-[1541.3px] w-[1440px] absolute !m-[0] bottom-[-466.3px] left-[calc(50%_-_720px)]">
+        <div className="h-full w-full absolute inset-0 !m-[0]">
           <img
-            className="absolute h-full top-[0px] bottom-[0px] left-[-280px] max-h-full w-[2000px] object-cover"
+            className="absolute h-full w-full top-0 left-0 object-cover"
             alt=""
             src="/background-1@2x.png"
           />
           <img
-            className="absolute top-[275px] left-[-109px] w-[676.3px] h-[909px] object-contain z-[1]"
+            className="absolute top-0 left-0 h-full w-full object-contain"
             loading="lazy"
             alt=""
             src="/graph@2x.png"
+            style={{ left: '0', transform: 'translateX(-42%)' }} // Ajustar posición a la izquierda
           />
         </div>
       </div>

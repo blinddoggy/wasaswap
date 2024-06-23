@@ -6,10 +6,13 @@ const wallets = [
   { name: "Coinbase", imgSrc: "/coinbase.svg" },
   { name: "Metamask", imgSrc: "/metamask.svg" },
   { name: "Coin98", imgSrc: "/coin98.svg" },
-  { name: "Wallet Connect", imgSrc: "/walletconnect.svg" },
+  { name: "Wallet", imgSrc: "/walletconnect.svg" },
   { name: "Brave", imgSrc: "/brave.svg" },
   { name: "Phantom", imgSrc: "/phantom2.svg" }
 ];
+
+// Duplicar más veces para llenar el carrusel
+const extendedWallets = [...wallets, ...wallets, ...wallets, ...wallets];
 
 const FrameComponent2 = ({ className = "" }) => {
   const containerVariantsLeftToRight = {
@@ -65,7 +68,7 @@ const FrameComponent2 = ({ className = "" }) => {
             variants={containerVariantsRightToLeft}
             animate="animate"
           >
-            {wallets.concat(wallets).map((wallet, index) => (
+            {extendedWallets.map((wallet, index) => (
               <div
                 key={`top-${index}`}
                 className="w-[210px] flex flex-col items-center justify-start py-[38px] px-[34px] gap-[10px] rounded-21xl box-border overflow-hidden shrink-0 relative"
@@ -98,7 +101,7 @@ const FrameComponent2 = ({ className = "" }) => {
             variants={containerVariantsLeftToRight}
             animate="animate"
           >
-            {wallets.concat(wallets).map((wallet, index) => (
+            {extendedWallets.map((wallet, index) => (
               <div
                 key={`bottom-${index}`}
                 className="w-[210px] flex flex-col items-center justify-start py-[38px] px-[34px] gap-[10px] rounded-21xl box-border overflow-hidden shrink-0 relative"

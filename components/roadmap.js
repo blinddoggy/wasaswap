@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 const Roadmap = ({ className = "" }) => {
   return (
     <section
-      className={`flex flex-row items-start justify-start py-0 px-10 box-border max-w-full text-left text-xl text-gray-400 font-space-grotesk ${className}`}
+      className={`flex flex-col items-start justify-start py-0 px-10 box-border max-w-full text-left text-xl text-gray-400 font-space-grotesk ${className}`}
     >
       <div className="flex flex-col items-center justify-start py-[120px] px-0 box-border gap-[80px] max-w-full lg:pt-[78px] lg:pb-[78px] lg:box-border mq450:gap-[20px] mq450:pt-[51px] mq450:pb-[51px] mq450:box-border mq825:gap-[40px]">
-        <div className="w-[341px] flex flex-col items-start justify-start max-w-full">
+        <div className="w-full flex flex-col items-center justify-start max-w-full">
           <b className="relative leading-[24px] inline-block min-w-[86px] mq450:text-base mq450:leading-[19px]">
             roadmap
           </b>
@@ -15,7 +15,7 @@ const Roadmap = ({ className = "" }) => {
             roadmap
           </h1>
         </div>
-        <div className="w-[1360px] h-[440px] overflow-x-auto shrink-0 flex flex-row items-start justify-start gap-[20px] max-w-full text-base text-white">
+        <div className="w-full flex flex-row flex-wrap items-center justify-center gap-[20px] overflow-x-auto max-w-full text-base text-white">
           <RoadmapCard
             background="/img-0162-1@2x.png"
             phase1="Phase 1"

@@ -25,15 +25,15 @@ const RoadmapCard = ({
 
   return (
     <div
-      className={`self-stretch flex-1 rounded-21xl bg-black1 box-border overflow-hidden shrink-0 flex flex-col items-center justify-start relative gap-[40px] max-w-full text-left text-base text-white font-space-grotesk border-[1px] border-solid border-gray-100 ${className}`}
+      className={`flex-1 rounded-21xl bg-black1 box-border overflow-hidden flex flex-col items-center justify-start relative gap-[40px] min-w-[300px] text-left text-base text-white font-space-grotesk border-[1px] border-solid border-gray-100 ${className}`}
     >
       <img
-        className="w-[500px] h-[500px] absolute !m-[0] top-[calc(50%_-_250px)] left-[calc(50%_-_249.5px)] object-cover"
+        className="w-full h-full absolute top-0 left-0 object-cover"
         alt=""
         src={background}
         style={backgroundIconStyle}
       />
-      <div className="w-[245px] flex flex-col items-start justify-center pt-0 px-0 pb-0 box-border relative gap-[20px] z-[1]">
+      <div className="flex flex-col items-start justify-center p-5 relative gap-[20px] z-[1] bg-black1 bg-opacity-60 rounded-21xl">
         <h1 className="m-0 relative text-21xl leading-[48px] font-medium font-inherit text-green mq450:text-5xl mq450:leading-[29px] mq825:text-13xl mq825:leading-[38px]">
           {phase1}
         </h1>
@@ -85,7 +85,7 @@ const RoadmapCard = ({
           </div>
         </div>
         <b
-          className="w-[133px] absolute !m-[0] top-[-60px] right-[0px] text-101xl leading-[120px] inline-block text-[transparent] [-webkit-text-stroke:1px_#14f195] opacity-[0.6] z-[1] mq450:text-11xl mq450:leading-[48px] mq825:text-29xl mq825:leading-[72px]"
+          className="w-[133px] absolute top-[-60px] right-0 text-101xl leading-[120px] inline-block text-[transparent] [-webkit-text-stroke:1px_#14f195] opacity-[0.6] z-[1] mq450:text-11xl mq450:leading-[48px] mq825:text-29xl mq825:leading-[72px]"
           style={emptyPhaseContentStyle}
         >
           {emptyPhaseContent}

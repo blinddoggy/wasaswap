@@ -3,24 +3,18 @@ import PropTypes from "prop-types";
 
 const Swap = ({ className = "" }) => {
   return (
-
-    
-
     <section
-      className={`flex flex-col items-center justify-center pt-0 px-0 pb-[120px] box-border max-w-full text-left text-221xl font-space-grotesk lg:pb-[78px] mq825:pb-[51px] ${className}`}
+      className={`flex flex-col items-center justify-center pt-0 px-4 pb-[120px] box-border max-w-full text-left text-221xl font-space-grotesk lg:pb-[78px] mq825:pb-[51px] ${className}`}
     >
       <div className="h-auto w-full bg-black1 overflow-hidden flex flex-col items-center justify-start relative max-w-full lg:h-auto">
-        <div className="w-full flex flex-col items-center justify-start py-0 px-5 lg:px-16 xl:px-32 gap-4 opacity-100 z-1">
-          <div className="w-full overflow-x-auto flex flex-row items-center justify-center py-0 px-5 lg:px-[83px] xl:px-[167px] gap-[20px]">
-            
+        <div className="w-full flex flex-col items-center justify-start py-0 px-4 lg:px-16 xl:px-32 gap-4 opacity-100 z-1">
+          <div className="w-full overflow-x-auto flex flex-row items-center justify-center py-0 px-4 lg:px-[83px] xl:px-[167px] gap-[20px]">
+            {/* Aquí se puede añadir contenido si es necesario */}
           </div>
 
           <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-4 flex-wrap">
             <div className="w-full lg:w-1/2 flex flex-col items-start justify-start relative gap-4">
-              
-              
-              
-              <div className="flex-1 rounded-21xl flex flex-col items-start justify-start py-[38px] px-[39px] box-border gap-[40px] text-base text-white">
+              <div className="flex-1 rounded-21xl flex flex-col items-start justify-start py-[38px] px-[20px] box-border gap-[20px] text-base text-white">
                 <div className="self-stretch flex flex-col items-start justify-start relative gap-[20px]">
                   <div className="self-stretch rounded-xl bg-black flex flex-col items-start justify-start pt-5 px-1 pb-1 gap-[20px]">
                     <div className="self-stretch flex flex-row items-start justify-start py-0 px-5">
@@ -30,7 +24,7 @@ const Swap = ({ className = "" }) => {
                     </div>
                     <div className="self-stretch rounded-xl bg-dark-grey flex flex-row items-center justify-between p-5 gap-[20px] text-21xl text-white flex-wrap">
                       <div className="flex flex-row items-center justify-start">
-                        <b className="relative leading-[44px] inline-block [-webkit-text-stroke:1px_#fff] text-[3rem] md:text-[4rem] lg:text-[5rem]">
+                        <b className="relative leading-[44px] inline-block [-webkit-text-stroke:1px_#fff] text-[2rem] md:text-[3rem] lg:text-[4rem]">
                           2,194
                         </b>
                       </div>
@@ -67,7 +61,7 @@ const Swap = ({ className = "" }) => {
                     </div>
                     <div className="self-stretch rounded-xl bg-dark-grey flex flex-row items-center justify-between p-5 gap-[20px] text-21xl text-white flex-wrap">
                       <div className="flex flex-row items-center justify-start">
-                        <b className="relative leading-[44px] inline-block [-webkit-text-stroke:1px_#fff] text-[3rem] md:text-[4rem] lg:text-[5rem]">
+                        <b className="relative leading-[44px] inline-block [-webkit-text-stroke:1px_#fff] text-[2rem] md:text-[3rem] lg:text-[4rem]">
                           12,466
                         </b>
                       </div>
@@ -182,13 +176,10 @@ const Swap = ({ className = "" }) => {
             </div>
             <div className="w-full lg:w-1/2 flex flex-col items-start justify-start pt-9 px-0 pb-0 box-border flex-wrap">
               <div className="self-stretch flex flex-row items-start justify-start relative">
-               
-               
-               
+                {/* Aquí puedes añadir contenido adicional si es necesario */}
               </div>
             </div>
           </div>
-          
         </div>
       </div>
     </section>

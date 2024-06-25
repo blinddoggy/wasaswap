@@ -1,7 +1,18 @@
+import { useState } from "react";
 import ToggleHeader from "./toggle-header";
 import PropTypes from "prop-types";
 
 const Tokenomics = ({ className = "" }) => {
+  const [openSection, setOpenSection] = useState(null);
+
+  const toggleSection = (section) => {
+    if (openSection === section) {
+      setOpenSection(null);
+    } else {
+      setOpenSection(section);
+    }
+  };
+
   return (
     <section
       className={`self-stretch flex flex-row items-start justify-center pt-0 px-10 pb-[120px] box-border max-w-full text-left text-xl text-gray-400 font-space-grotesk lg:pb-[78px] lg:box-border mq450:pb-[51px] mq450:box-border ${className}`}
@@ -21,48 +32,87 @@ const Tokenomics = ({ className = "" }) => {
               <ToggleHeader
                 prop="60%"
                 liquidity="Liquidity"
-                remove="/remove.svg"
+                remove={openSection === "liquidity" ? "/remove.svg" : "/add1.svg"}
+                onClick={() => toggleSection("liquidity")}
               />
-              <div className="self-stretch flex flex-row items-center justify-start py-5 px-[22px] box-border max-w-full text-base text-white font-archivo">
-                <div className="flex-1 relative tracking-[0.02em] leading-[26px] font-light inline-block max-w-full">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse bibendum tincidunt volutpat. Pellentesque mattis
-                  turpis neque, non lacinia ligula blandit faucibus.
+              {openSection === "liquidity" && (
+                <div className="self-stretch flex flex-row items-center justify-start py-5 px-[22px] box-border max-w-full text-base text-white font-archivo">
+                  <div className="flex-1 relative tracking-[0.02em] leading-[26px] font-light inline-block max-w-full">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse bibendum tincidunt volutpat. Pellentesque mattis
+                    turpis neque, non lacinia ligula blandit faucibus.
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
-            <ToggleHeader
-              prop="15%"
-              liquidity="Marketing"
-              remove="/add1.svg"
-              propBorderBottom="1px solid #9945ff"
-              propMinWidth="123px"
-              propBackgroundColor="unset"
-            />
-            <ToggleHeader
-              prop="10%"
-              liquidity="Ecosystem"
-              remove="/add1.svg"
-              propBorderBottom="1px solid #9945ff"
-              propMinWidth="132px"
-              propBackgroundColor="unset"
-            />
-            <ToggleHeader
-              prop="10%"
-              liquidity="Team"
-              remove="/add1.svg"
-              propBorderBottom="1px solid #9945ff"
-              propMinWidth="62px"
-              propBackgroundColor="unset"
-            />
-            <ToggleHeader
-              prop="5%"
-              liquidity="Advisory"
-              remove="/add1.svg"
-              propBorderBottom="1px solid #9945ff"
-              propMinWidth="106px"
-              propBackgroundColor="unset"
-            />
+            <div className="self-stretch box-border flex flex-col items-center justify-center max-w-full border-b-[1px] border-solid border-purple">
+              <ToggleHeader
+                prop="15%"
+                liquidity="Marketing"
+                remove={openSection === "marketing" ? "/remove.svg" : "/add1.svg"}
+                onClick={() => toggleSection("marketing")}
+              />
+              {openSection === "marketing" && (
+                <div className="self-stretch flex flex-row items-center justify-start py-5 px-[22px] box-border max-w-full text-base text-white font-archivo">
+                  <div className="flex-1 relative tracking-[0.02em] leading-[26px] font-light inline-block max-w-full">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse bibendum tincidunt volutpat. Pellentesque mattis
+                    turpis neque, non lacinia ligula blandit faucibus.
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="self-stretch box-border flex flex-col items-center justify-center max-w-full border-b-[1px] border-solid border-purple">
+              <ToggleHeader
+                prop="10%"
+                liquidity="Ecosystem"
+                remove={openSection === "ecosystem" ? "/remove.svg" : "/add1.svg"}
+                onClick={() => toggleSection("ecosystem")}
+              />
+              {openSection === "ecosystem" && (
+                <div className="self-stretch flex flex-row items-center justify-start py-5 px-[22px] box-border max-w-full text-base text-white font-archivo">
+                  <div className="flex-1 relative tracking-[0.02em] leading-[26px] font-light inline-block max-w-full">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse bibendum tincidunt volutpat. Pellentesque mattis
+                    turpis neque, non lacinia ligula blandit faucibus.
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="self-stretch box-border flex flex-col items-center justify-center max-w-full border-b-[1px] border-solid border-purple">
+              <ToggleHeader
+                prop="10%"
+                liquidity="Team"
+                remove={openSection === "team" ? "/remove.svg" : "/add1.svg"}
+                onClick={() => toggleSection("team")}
+              />
+              {openSection === "team" && (
+                <div className="self-stretch flex flex-row items-center justify-start py-5 px-[22px] box-border max-w-full text-base text-white font-archivo">
+                  <div className="flex-1 relative tracking-[0.02em] leading-[26px] font-light inline-block max-w-full">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse bibendum tincidunt volutpat. Pellentesque mattis
+                    turpis neque, non lacinia ligula blandit faucibus.
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="self-stretch box-border flex flex-col items-center justify-center max-w-full border-b-[1px] border-solid border-purple">
+              <ToggleHeader
+                prop="5%"
+                liquidity="Advisory"
+                remove={openSection === "advisory" ? "/remove.svg" : "/add1.svg"}
+                onClick={() => toggleSection("advisory")}
+              />
+              {openSection === "advisory" && (
+                <div className="self-stretch flex flex-row items-center justify-start py-5 px-[22px] box-border max-w-full text-base text-white font-archivo">
+                  <div className="flex-1 relative tracking-[0.02em] leading-[26px] font-light inline-block max-w-full">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse bibendum tincidunt volutpat. Pellentesque mattis
+                    turpis neque, non lacinia ligula blandit faucibus.
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <div className="absolute inset-0 flex items-start justify-center z-0">

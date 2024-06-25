@@ -19,7 +19,7 @@ const Swap = ({ className = "" }) => {
             <div className="w-full lg:w-1/2 flex flex-col items-start justify-start relative gap-4">
               
               
-             
+              
               <div className="flex-1 rounded-21xl flex flex-col items-start justify-start py-[38px] px-[39px] box-border gap-[40px] text-base text-white">
                 <div className="self-stretch flex flex-col items-start justify-start relative gap-[20px]">
                   <div className="self-stretch rounded-xl bg-black flex flex-col items-start justify-start pt-5 px-1 pb-1 gap-[20px]">
@@ -183,40 +183,8 @@ const Swap = ({ className = "" }) => {
             <div className="w-full lg:w-1/2 flex flex-col items-start justify-start pt-9 px-0 pb-0 box-border flex-wrap">
               <div className="self-stretch flex flex-row items-start justify-start relative">
                
-                <div className="flex-1 flex flex-col items-end justify-start gap-[40px] flex-wrap">
-                  <div className="self-stretch flex flex-row items-start justify-start gap-[37px] flex-wrap">
-                    <div className="flex-1 flex flex-col items-start justify-start pt-[140px] px-0 pb-0 box-border">
-                      <div className="self-stretch flex flex-row items-start justify-start relative">
-                       
-                        <b className="flex-1 relative text-xl leading-[24px] inline-block text-gray-400 z-[2]">
-                          swap
-                        </b>
-                      </div>
-                    </div>
-                   
-                  </div>
-                  <div className="self-stretch flex flex-row items-start justify-start">
-                    <div className="flex flex-row items-start justify-start gap-[20px] flex-wrap">
-                     
-                      
-                    </div>
-                  </div>
-                  <div className="flex flex-row items-start justify-start gap-[20px] flex-wrap">
-                  
-                   
-                  </div>
-                </div>
-                <h1 className="!m-0 w-[555px] absolute top-[164px] left-[0.5px] text-green inline-block z-[2] text-[3rem] md:text-[4rem] lg:text-[5rem] xl:text-[6rem]">
-                  <span className="font-light">{`buy `}</span>
-                  <b>wazaa</b>
-                </h1>
-                <div className="flex-1 absolute bottom-[140px] left-[0.5px] text-white z-[2] text-[1rem] md:text-[1.25rem] lg:text-[1.5rem] xl:text-[1.75rem]">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Maecenas mollis dui mi, sed varius lacus rutrum at. Etiam eget
-                  consectetur elit. Ut nunc sem, tincidunt id turpis sit amet,
-                  vulputate sollicitudin quam. Integer quis commodo odio.
-                  Maecenas malesuada diam nisi, eu aliquet enim quis. 
-                </div>
+               
+               
               </div>
             </div>
           </div>

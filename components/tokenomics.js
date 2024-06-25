@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 const Tokenomics = ({ className = "" }) => {
   return (
     <section
-      className={`self-stretch flex flex-row items-start justify-start pt-0 px-10 pb-[120px] box-border max-w-full text-left text-xl text-gray-400 font-space-grotesk lg:pb-[78px] lg:box-border mq450:pb-[51px] mq450:box-border ${className}`}
+      className={`self-stretch flex flex-row items-start justify-center pt-0 px-10 pb-[120px] box-border max-w-full text-left text-xl text-gray-400 font-space-grotesk lg:pb-[78px] lg:box-border mq450:pb-[51px] mq450:box-border ${className}`}
     >
-      <div className="flex-1 rounded-21xl bg-black1 box-border overflow-hidden flex flex-row items-start justify-end py-[117px] px-[115px] relative max-w-full border-[1px] border-solid border-gray-100 mq450:py-[49px] mq450:px-5 mq450:box-border mq825:py-[76px] mq825:px-[57px] mq825:box-border">
-        <div className="w-[555px] flex flex-col items-start justify-start gap-[40px] max-w-full z-[1] mq825:gap-[20px]">
+      <div className="relative flex-1 rounded-21xl bg-black1 box-border overflow-hidden flex flex-row items-start justify-center py-[117px] px-[115px] max-w-full border-[1px] border-solid border-gray-100 mq450:py-[49px] mq450:px-5 mq450:box-border mq825:py-[76px] mq825:px-[57px] mq825:box-border">
+        <div className="relative w-[555px] flex flex-col items-start justify-start gap-[40px] max-w-full z-[1] mq825:gap-[20px]">
           <div className="w-[510px] flex flex-col items-start justify-start max-w-full">
             <b className="self-stretch relative leading-[24px] mq450:text-base mq450:leading-[19px]">
               tokenomics
@@ -65,9 +65,9 @@ const Tokenomics = ({ className = "" }) => {
             />
           </div>
         </div>
-        <div className="h-full w-full absolute inset-0 !m-[0]">
+        <div className="absolute inset-0 flex items-start justify-center z-0">
           <img
-            className="absolute h-full w-full top-0 left-0 object-cover"
+            className="absolute h-full w-full object-cover"
             alt=""
             src="/background-1@2x.png"
           />
@@ -76,7 +76,7 @@ const Tokenomics = ({ className = "" }) => {
             loading="lazy"
             alt=""
             src="/graph@2x.png"
-            style={{ left: '0', transform: 'translateX(-42%)' }} // Ajustar posición a la izquierda
+            style={{ left: '0', transform: 'translateX(-42%)' }}
           />
         </div>
       </div>

@@ -87,7 +87,7 @@ const Hero = ({ className = "" }) => {
           888
         </div>
         <img
-          className="h-[631px] w-[732.1px] absolute top-[84.1px] left-[-31.1px] object-contain z-[3]"
+          className="h-[631px] w-[732.1px] absolute top-[84.1px] left-[-31.1px] object-contain z-[3] mq450:h-[300px] mq450:w-[350px] mq825:h-[400px] mq825:w-[500px]"
           loading="lazy"
           alt=""
           src="/mask1@2x.png"

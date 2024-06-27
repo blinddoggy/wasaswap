@@ -1,6 +1,6 @@
 import FrameComponent1 from "../components/frame-component11";
 import FrameComponent2 from "../components/frame-component21";
-import Swap from "../components/swap";
+import Swap from "../components/test-swap";
 import Tokenomics from "../components/tokenomics";
 import Roadmap from "../components/roadmap";
 import Footer from "../components/footer";

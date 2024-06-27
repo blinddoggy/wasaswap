@@ -4,7 +4,8 @@ import Swap from "../components/test-swap";
 import Tokenomics from "../components/tokenomics";
 import Roadmap from "../components/roadmap";
 import Footer from "../components/footer";
-import SendToken from '../components/sendtoken';
+import SendToken from "../components/sendtoken";
+import BackPack from  "../components/BackpackWallet"
 
 const Desktop = () => {
   return (

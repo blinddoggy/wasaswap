@@ -2489,6 +2489,13 @@
   dependencies:
     "@solana/wallet-adapter-base" "^0.9.23"
 
+"@solana/wallet-adapter-backpack@^0.1.14":
+  version "0.1.14"
+  resolved "https://registry.npmjs.org/@solana/wallet-adapter-backpack/-/wallet-adapter-backpack-0.1.14.tgz"
+  integrity sha512-DfNLd5S1P7rmrgqMp+jRd21ryuXUxia1mu4qmZ+cau1NGFO2v5ep14LhzYXmqPde6kgbzPLPkLdRnkffLdI4TA==
+  dependencies:
+    "@solana/wallet-adapter-base" "^0.9.23"
+
 "@solana/wallet-adapter-base-ui@^0.1.2":
   version "0.1.2"
   resolved "https://registry.npmjs.org/@solana/wallet-adapter-base-ui/-/wallet-adapter-base-ui-0.1.2.tgz"

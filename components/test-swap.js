@@ -32,9 +32,7 @@ const TestSwap = ({ className = '' }) => {
                 })
             );
 
-            // Sign and send the transaction using Phantom wallet
-            const signedTransaction = await wallet.signTransaction(transaction);
-            const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+            const { signature } = await wallet.sendTransaction(transaction, connection);
             await connection.confirmTransaction(signature, 'confirmed');
 
             setMessage(`Transaction successful: https://explorer.solana.com/tx/${signature}?cluster=mainnet-beta`);
@@ -47,7 +45,7 @@ const TestSwap = ({ className = '' }) => {
     }, [wallet, recipient, amount]);
 
     return (
-        <Box className={`flex flex-col items-center justify-center p-4 ${className}`}>
+        <Box className={`flex flex-col items-center justify-center p-4 text-white ${className}`}>
             <WalletMultiButton />
             <Typography variant="h6" gutterBottom>
                 {message}
@@ -62,6 +60,8 @@ const TestSwap = ({ className = '' }) => {
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
                 margin="normal"
+                InputLabelProps={{ style: { color: 'white' } }}
+                InputProps={{ style: { color: 'white' } }}
             />
             <TextField
                 label="Amount (SOL)"
@@ -70,6 +70,8 @@ const TestSwap = ({ className = '' }) => {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 margin="normal"
+                InputLabelProps={{ style: { color: 'white' } }}
+                InputProps={{ style: { color: 'white' } }}
             />
             <Button
                 variant="contained"

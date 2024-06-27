@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useState } from 'react';
 import {
   createDefaultAuthorizationResultCache,
   SolanaMobileWalletAdapter,
@@ -14,10 +14,7 @@ import {
   WalletModalProvider,
   WalletMultiButton,
 } from '@solana/wallet-adapter-react-ui';
-import {
-  PhantomWalletAdapter,
-  
-} from '@solana/wallet-adapter-wallets';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl, PublicKey, Transaction, TransactionInstruction } from '@solana/web3.js';
 
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -31,6 +28,7 @@ const SolanaWalletComponent = () => {
 };
 
 const Context = ({ children }) => {
+    //network choose---------------------------------------------------------//
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
@@ -41,7 +39,6 @@ const Context = ({ children }) => {
         authorizationResultCache: createDefaultAuthorizationResultCache(),
       }),
       new PhantomWalletAdapter(),
-      
     ],
     [network]
   );
@@ -57,7 +54,7 @@ const Context = ({ children }) => {
 
 const Content = () => {
   return (
-    <div className="App">
+    <div className="App" style={{ textAlign: 'center', margin: '20px' }}>
       <WalletMultiButton />
       <SendTransaction />
     </div>
@@ -67,6 +64,8 @@ const Content = () => {
 const SendTransaction = () => {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
+  const [recipient, setRecipient] = useState('');
+  const [amount, setAmount] = useState('');
 
   const onClick = useCallback(async () => {
     if (!publicKey) {
@@ -78,13 +77,9 @@ const SendTransaction = () => {
     try {
       const transaction = new Transaction().add(
         new TransactionInstruction({
-          data: Buffer.from(
-            'Hello, from the Solana Wallet Adapter example app!'
-          ),
+          data: Buffer.from(`Sending ${amount} SOL`),
           keys: [],
-          programId: new PublicKey(
-            'MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr'
-          ),
+          programId: new PublicKey(recipient),
         })
       );
 
@@ -94,19 +89,44 @@ const SendTransaction = () => {
       await connection.confirmTransaction(signature, 'processed');
       console.info('success', 'Transaction successful!', signature);
     } catch (error) {
-      console.error(
-        'error',
-        `Transaction failed! ${error?.message}`,
-        signature
-      );
+      console.error('error', `Transaction failed! ${error?.message}`, signature);
       return;
     }
-  }, [publicKey, connection, sendTransaction]);
+  }, [publicKey, connection, sendTransaction, recipient, amount]);
 
   return (
-    <button onClick={onClick} disabled={!publicKey}>
-      Send Transaction (devnet)
-    </button>
+    <div style={{ marginTop: '20px' }}>
+      <input
+        type="text"
+        placeholder="Recipient Public Key"
+        value={recipient}
+        onChange={(e) => setRecipient(e.target.value)}
+        style={{ marginBottom: '10px', padding: '10px', width: '300px' }}
+      />
+      <br />
+      <input
+        type="text"
+        placeholder="Amount"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        style={{ marginBottom: '10px', padding: '10px', width: '300px' }}
+      />
+      <br />
+      <button
+        onClick={onClick}
+        disabled={!publicKey}
+        style={{
+          padding: '10px 20px',
+          backgroundColor: '#007bff',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+        }}
+      >
+        Send Transaction (devnet)
+      </button>
+    </div>
   );
 };
 

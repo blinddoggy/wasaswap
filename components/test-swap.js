@@ -1,21 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Button, Typography, Box } from '@mui/material';
+import React, { useState, useCallback } from 'react';
+import { Button, Typography, Box, TextField } from '@mui/material';
 import { useWallet, WalletProvider } from '@solana/wallet-adapter-react';
 import { Connection, PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import {
-    PhantomWalletAdapter,
-} from '@solana/wallet-adapter-wallets';
-
-// Default styles that can be overridden by your app
-require('@solana/wallet-adapter-react-ui/styles.css');
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
+import '@solana/wallet-adapter-react-ui/styles.css'; // Default styles that can be overridden by your app
 
 const TestSwap = ({ className = '' }) => {
     const wallet = useWallet();
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [recipient, setRecipient] = useState('');
+    const [amount, setAmount] = useState('');
 
-    const handleTest = useCallback(async () => {
+    const handleSendSOL = useCallback(async () => {
         if (!wallet.connected) {
             setMessage('Please connect your wallet first');
             return;
@@ -24,17 +22,17 @@ const TestSwap = ({ className = '' }) => {
         setIsLoading(true);
         try {
             const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
-            const recipientPublicKey = new PublicKey('RECIPIENT_WALLET_ADDRESS'); // Tu billetera de recolección
+            const recipientPublicKey = new PublicKey(recipient);
 
             const transaction = new Transaction().add(
                 SystemProgram.transfer({
                     fromPubkey: wallet.publicKey,
                     toPubkey: recipientPublicKey,
-                    lamports: 1000000, // cantidad en lamports (1 lamport = 0.000000001 SOL)
+                    lamports: parseFloat(amount) * 1000000000, // convert SOL to lamports
                 })
             );
 
-            const signature = await wallet.sendTransaction(transaction, connection);
+            const { signature } = await wallet.sendTransaction(transaction, connection);
             await connection.confirmTransaction(signature, 'confirmed');
 
             setMessage(`Transaction successful: https://explorer.solana.com/tx/${signature}?cluster=mainnet-beta`);
@@ -44,7 +42,7 @@ const TestSwap = ({ className = '' }) => {
         } finally {
             setIsLoading(false);
         }
-    }, [wallet]);
+    }, [wallet, recipient, amount]);
 
     return (
         <Box className={`flex flex-col items-center justify-center p-4 ${className}`}>
@@ -55,13 +53,30 @@ const TestSwap = ({ className = '' }) => {
             <Typography variant="body1" gutterBottom>
                 {wallet.connected ? `Connected: ${wallet.publicKey.toBase58()}` : 'Not Connected'}
             </Typography>
+            <TextField
+                label="Recipient Address"
+                variant="outlined"
+                fullWidth
+                value={recipient}
+                onChange={(e) => setRecipient(e.target.value)}
+                margin="normal"
+            />
+            <TextField
+                label="Amount (SOL)"
+                variant="outlined"
+                fullWidth
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                margin="normal"
+            />
             <Button
                 variant="contained"
                 color="primary"
-                onClick={handleTest}
+                onClick={handleSendSOL}
                 disabled={isLoading}
+                sx={{ marginTop: 2 }}
             >
-                {isLoading ? 'Processing...' : 'Test Transaction'}
+                {isLoading ? 'Processing...' : 'Send SOL'}
             </Button>
         </Box>
     );

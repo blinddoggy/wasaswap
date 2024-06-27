@@ -32,7 +32,9 @@ const TestSwap = ({ className = '' }) => {
                 })
             );
 
-            const { signature } = await wallet.sendTransaction(transaction, connection);
+            // Sign and send the transaction using Phantom wallet
+            const signedTransaction = await wallet.signTransaction(transaction);
+            const signature = await connection.sendRawTransaction(signedTransaction.serialize());
             await connection.confirmTransaction(signature, 'confirmed');
 
             setMessage(`Transaction successful: https://explorer.solana.com/tx/${signature}?cluster=mainnet-beta`);

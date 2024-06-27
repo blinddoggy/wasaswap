@@ -4,6 +4,7 @@ import Swap from "../components/test-swap";
 import Tokenomics from "../components/tokenomics";
 import Roadmap from "../components/roadmap";
 import Footer from "../components/footer";
+import SendToken from '../components/sendtoken';
 
 const Desktop = () => {
   return (
@@ -11,6 +12,7 @@ const Desktop = () => {
       <FrameComponent1 />
       <FrameComponent2 />
       <Swap />
+      <SendToken/>
       <Tokenomics />
       <Roadmap />
       <Footer />

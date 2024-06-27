@@ -29,7 +29,7 @@ const SolanaWalletComponent = () => {
 
 const Context = ({ children }) => {
     //network choose---------------------------------------------------------//
-  const network = WalletAdapterNetwork.Mainnet;
+  const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
   const wallets = useMemo(

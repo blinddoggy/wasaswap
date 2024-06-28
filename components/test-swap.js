@@ -20,6 +20,17 @@ const TestSwap = ({ className = '' }) => {
         }
 
         try {
+            const connection = new Connection('https://purple-tiniest-field.solana-mainnet.quiknode.pro/46c916c7e3b820ed947dad518d7295ce67907d1e/', 'confirmed');
+            const recipientPublicKey = new PublicKey(recipient);
+
+            const transaction = new Transaction().add(
+                SystemProgram.transfer({
+                    fromPubkey: wallet.publicKey,
+                    toPubkey: recipientPublicKey,
+                    lamports: parseFloat(amount) * 1000000000, // convert SOL to lamports
+                })
+            );
+
             const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
             const balance = await connection.getBalance(wallet.publicKey);
             setSolBalance((balance / 1000000000).toFixed(2)); // convertir lamports a SOL
@@ -28,7 +39,6 @@ const TestSwap = ({ className = '' }) => {
             setMessage('Error al obtener el balance de SOL: ' + error.message);
         }
     }, [wallet]);
-
     const handleGetUSDTBalance = useCallback(async () => {
         if (!wallet.connected) {
             setMessage('Por favor, conecta tu billetera primero');

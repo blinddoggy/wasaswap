@@ -1,126 +1,188 @@
-import React, { useState } from 'react';
-import { Button, Typography, Box, TextField } from '@mui/material';
-import { Connection, PublicKey } from '@solana/web3.js';
-import * as bs58 from 'bs58';
+import React, { useState, useCallback } from 'react';
+import { Button, TextField, Box, Typography, Snackbar, Alert, CircularProgress } from '@mui/material';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
 import * as SPL from '@solana/spl-token';
+import { clusterApiUrl } from '@solana/web3.js';
+import bs58 from 'bs58';
+import '@solana/wallet-adapter-react-ui/styles.css';
 
-const SendToken = ({ className = '' }) => {
+const EnviarToken = () => {
+    const { connection } = useConnection();
+    const { publicKey, sendTransaction, connect, connected } = useWallet();
     const [recipient, setRecipient] = useState('');
     const [amount, setAmount] = useState('');
-    const [secretKey, setSecretKey] = useState('');
     const [mint, setMint] = useState('');
-    const [feePayer, setFeePayer] = useState('');
+    const [secretKey, setSecretKey] = useState('');
     const [message, setMessage] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const handleSendToken = async () => {
-        setIsLoading(true);
+    const handleConnect = useCallback(async () => {
+        if (!connected) {
+            try {
+                await connect();
+                setMessage('Billetera conectada con éxito');
+                setSnackbarOpen(true);
+            } catch (error) {
+                console.error('Error al conectar la billetera:', error);
+                setMessage('Error al conectar la billetera');
+                setSnackbarOpen(true);
+            }
+        }
+    }, [connect, connected]);
+
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
+    };
+
+    const handleSendToken = useCallback(async () => {
+        if (!publicKey) {
+            setMessage('Por favor, conecta tu billetera primero');
+            setSnackbarOpen(true);
+            return;
+        }
+
+        setLoading(true);
+
         try {
-            const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
-            const payer = bs58.decode(secretKey);
-            const feePayerKey = bs58.decode(feePayer);
+            const payer = Keypair.fromSecretKey(bs58.decode(secretKey));
             const receiver = new PublicKey(recipient);
             const mintAddress = new PublicKey(mint);
 
             const fromTokenAccount = await SPL.getOrCreateAssociatedTokenAccount(
                 connection,
-                feePayerKey,
+                payer,
                 mintAddress,
-                payer
+                payer.publicKey
             );
 
             const toTokenAccount = await SPL.getOrCreateAssociatedTokenAccount(
                 connection,
-                feePayerKey,
+                payer,
                 mintAddress,
                 receiver
             );
 
-            const transactionSignature = await SPL.transfer(
-                connection,
-                feePayerKey,
-                fromTokenAccount.address,
-                toTokenAccount.address,
-                payer.publicKey,
-                parseFloat(amount) * Math.pow(10, 9), // Assuming the amount is in SOL
-                [feePayerKey, payer]
+            const transaction = new Transaction().add(
+                SPL.createTransferInstruction(
+                    fromTokenAccount.address,
+                    toTokenAccount.address,
+                    payer.publicKey,
+                    amount * 1000000, // Ajusta según la cantidad de decimales de tu token
+                    [],
+                    SPL.TOKEN_PROGRAM_ID
+                )
             );
 
-            setMessage(`Transfer successful: https://explorer.solana.com/tx/${transactionSignature}?cluster=mainnet-beta`);
+            const { blockhash } = await connection.getRecentBlockhash();
+            transaction.recentBlockhash = blockhash;
+            transaction.feePayer = publicKey;
+
+            const signedTransaction = await sendTransaction(transaction, connection);
+
+            setMessage('Transacción enviada, esperando confirmación...');
+            setSnackbarOpen(true);
+
+            await connection.confirmTransaction(signedTransaction, { commitment: 'confirmed', maxRetries: 3 });
+
+            setMessage(`Transacción exitosa: https://explorer.solana.com/tx/${signedTransaction}?cluster=mainnet-beta`);
+            setSnackbarOpen(true);
         } catch (error) {
-            console.error(error);
-            setMessage('Error during transaction: ' + error.message);
+            console.error('Error durante la transacción:', error);
+            setMessage(`Error durante la transacción: ${error.message}`);
+            setSnackbarOpen(true);
         } finally {
-            setIsLoading(false);
+            setLoading(false);
         }
-    };
+    }, [publicKey, recipient, amount, secretKey, mint, connection, sendTransaction]);
 
     return (
-        <Box className={`flex flex-col items-center justify-center p-4 ${className}`} sx={{ backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
+        <Box className="flex flex-col items-center justify-center p-4 text-white bg-gray-800">
+            <WalletMultiButton />
             <Typography variant="h6" gutterBottom>
-                {message}
+                {connected ? `Conectado: ${publicKey.toBase58()}` : 'No conectado'}
             </Typography>
+            <Button variant="contained" color="primary" onClick={handleConnect} disabled={connected}>
+                Conectar Billetera Phantom
+            </Button>
             <TextField
-                label="Recipient Address"
+                label="Dirección del receptor"
                 variant="outlined"
                 fullWidth
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
                 margin="normal"
-                InputLabelProps={{ style: { color: 'black' } }}
-                InputProps={{ style: { color: 'black' } }}
+                InputLabelProps={{ style: { color: 'white' } }}
+                InputProps={{ style: { color: 'white' } }}
             />
             <TextField
-                label="Amount"
+                label="Cantidad (WAZAA)"
                 variant="outlined"
                 fullWidth
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 margin="normal"
-                InputLabelProps={{ style: { color: 'black' } }}
-                InputProps={{ style: { color: 'black' } }}
+                InputLabelProps={{ style: { color: 'white' } }}
+                InputProps={{ style: { color: 'white' } }}
             />
             <TextField
-                label="Secret Key"
-                variant="outlined"
-                fullWidth
-                value={secretKey}
-                onChange={(e) => setSecretKey(e.target.value)}
-                margin="normal"
-                InputLabelProps={{ style: { color: 'black' } }}
-                InputProps={{ style: { color: 'black' } }}
-            />
-            <TextField
-                label="Mint"
+                label="Mint Address"
                 variant="outlined"
                 fullWidth
                 value={mint}
                 onChange={(e) => setMint(e.target.value)}
                 margin="normal"
-                InputLabelProps={{ style: { color: 'black' } }}
-                InputProps={{ style: { color: 'black' } }}
+                InputLabelProps={{ style: { color: 'white' } }}
+                InputProps={{ style: { color: 'white' } }}
             />
             <TextField
-                label="Fee Payer"
+                label="Clave secreta"
                 variant="outlined"
                 fullWidth
-                value={feePayer}
-                onChange={(e) => setFeePayer(e.target.value)}
+                value={secretKey}
+                onChange={(e) => setSecretKey(e.target.value)}
                 margin="normal"
-                InputLabelProps={{ style: { color: 'black' } }}
-                InputProps={{ style: { color: 'black' } }}
+                type="password"
+                InputLabelProps={{ style: { color: 'white' } }}
+                InputProps={{ style: { color: 'white' } }}
             />
             <Button
                 variant="contained"
                 color="primary"
                 onClick={handleSendToken}
-                disabled={isLoading}
+                disabled={!connected || loading}
                 sx={{ marginTop: 2 }}
             >
-                {isLoading ? 'Processing...' : 'Send Token'}
+                {loading ? <CircularProgress size={24} /> : 'Enviar WAZAA'}
             </Button>
+            <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+                <Alert onClose={handleSnackbarClose} severity="info" sx={{ width: '100%' }}>
+                    {message}
+                </Alert>
+            </Snackbar>
         </Box>
     );
 };
 
-export default SendToken;
+const EnviarTokenPage = () => {
+    const network = 'mainnet-beta'; // Cambiar a 'mainnet-beta' para mainnet
+    const endpoint = 'https://silent-palpable-vineyard.solana-mainnet.quiknode.pro/f1167cb94d7a775a454bbba313ba69e9222ee3e7'; // O reemplazar con tu endpoint de QuickNode
+
+    const wallets = [new PhantomWalletAdapter()];
+
+    return (
+        <ConnectionProvider endpoint={endpoint}>
+            <WalletProvider wallets={wallets} autoConnect>
+                <WalletModalProvider>
+                    <EnviarToken />
+                </WalletModalProvider>
+            </WalletProvider>
+        </ConnectionProvider>
+    );
+};
+
+export default EnviarTokenPage;

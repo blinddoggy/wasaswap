@@ -1,16 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import { Button, TextField, Box, Typography, Snackbar, Alert, CircularProgress } from '@mui/material';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { useConnection, useWallet, ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { PublicKey, Transaction, SystemProgram , Keypair} from '@solana/web3.js';
+import { PublicKey, Transaction, Keypair } from '@solana/web3.js';
 import * as SPL from '@solana/spl-token';
-import { clusterApiUrl } from '@solana/web3.js';
 import bs58 from 'bs58';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
-const EnviarToken = () => {
+const EnviarSPLToken = () => {
     const { connection } = useConnection();
     const { publicKey, sendTransaction, connect, connected } = useWallet();
     const [recipient, setRecipient] = useState('');
@@ -72,7 +70,7 @@ const EnviarToken = () => {
                     fromTokenAccount.address,
                     toTokenAccount.address,
                     payer.publicKey,
-                    amount * 1000000, // Ajusta según la cantidad de decimales de tu token
+                    parseInt(amount) * 1000000, // Ajusta según la cantidad de decimales de tu token
                     [],
                     SPL.TOKEN_PROGRAM_ID
                 )
@@ -178,7 +176,7 @@ const EnviarTokenPage = () => {
         <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>
-                    <EnviarToken />
+                    <EnviarSPLToken />
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>

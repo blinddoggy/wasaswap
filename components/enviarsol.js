@@ -68,7 +68,7 @@ const EnviarSol = () => {
 
             await connection.confirmTransaction(signedTransaction, { commitment: 'confirmed', maxRetries: 3 });
 
-            setMessage(`Transacción exitosa: https://explorer.solana.com/tx/${signedTransaction}?cluster=devnet`);
+            setMessage(`Transacción exitosa: https://explorer.solana.com/tx/${signedTransaction}?cluster=mainnet-beta`);
             setSnackbarOpen(true);
         } catch (error) {
             console.error('Error durante la transacción:', error);

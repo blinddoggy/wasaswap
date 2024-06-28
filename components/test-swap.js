@@ -20,7 +20,7 @@ const TestSwap = ({ className = '' }) => {
         }
 
         try {
-            const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+            const connection = new Connection('https://purple-tiniest-field.solana-mainnet.quiknode.pro/46c916c7e3b820ed947dad518d7295ce67907d1e/', 'confirmed');
             const balance = await connection.getBalance(wallet.publicKey);
             setSolBalance((balance / 1000000000).toFixed(2)); // convertir lamports a SOL
         } catch (error) {
@@ -36,7 +36,7 @@ const TestSwap = ({ className = '' }) => {
         }
 
         try {
-            const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+            const connection = new Connection('https://purple-tiniest-field.solana-mainnet.quiknode.pro/46c916c7e3b820ed947dad518d7295ce67907d1e/', 'confirmed');
             const USDT_MINT_ADDRESS = 'Es9vMFrzaCERkTVgYp2iGdZpVhZhVQZa1oKLkFnGXVCf'; // Dirección del contrato de USDT en Solana
             const tokenAccounts = await connection.getParsedTokenAccountsByOwner(wallet.publicKey, { mint: new PublicKey(USDT_MINT_ADDRESS) });
             const tokenAccountInfo = tokenAccounts.value[0].account.data.parsed.info;

@@ -2,16 +2,15 @@ import React, { useState, useCallback } from 'react';
 import { Button, TextField, Box, Typography, Snackbar, Alert, CircularProgress } from '@mui/material';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
+import { PublicKey, Transaction } from '@solana/web3.js';
+import axios from 'axios';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
-const EnviarSol = () => {
+const CompraToken = () => {
     const { connection } = useConnection();
     const { publicKey, sendTransaction, connect, connected } = useWallet();
-    const [recipient, setRecipient] = useState('');
     const [amount, setAmount] = useState('');
     const [message, setMessage] = useState('');
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -35,7 +34,7 @@ const EnviarSol = () => {
         setSnackbarOpen(false);
     };
 
-    const handleSendSOL = useCallback(async () => {
+    const handleBuyToken = useCallback(async () => {
         if (!publicKey) {
             setMessage('Por favor, conecta tu billetera primero');
             setSnackbarOpen(true);
@@ -45,39 +44,30 @@ const EnviarSol = () => {
         setLoading(true);
 
         try {
-            const recipientPublicKey = new PublicKey(recipient);
-            const transaction = new Transaction().add(
-                SystemProgram.transfer({
-                    fromPubkey: publicKey,
-                    toPubkey: recipientPublicKey,
-                    lamports: parseFloat(amount) * 1000000000, // convertir SOL a lamports
-                })
-            );
+            // Obtener la mejor cotización de Jupiter
+            const response = await axios.get(`https://quote-api.jup.ag/v1/quote?inputMint=So11111111111111111111111111111111111111112&outputMint=asyvdzKqaHzopHa5XeNDN7ZYPDVEArD4ZfDZQt4sDHX&amount=${amount * 1000000}&slippage=1`);
+            const quote = response.data.data[0];
+            const { inAmount, outAmount, feeAmount, swapTransaction } = quote;
 
-            const { blockhash } = await connection.getRecentBlockhash();
-            transaction.recentBlockhash = blockhash;
+            const transaction = Transaction.from(Buffer.from(swapTransaction, 'base64'));
+
+            // Agregar las firmas y enviar la transacción
+            transaction.recentBlockhash = (await connection.getRecentBlockhash()).blockhash;
             transaction.feePayer = publicKey;
 
-            setMessage('Solicitando firma de transacción...');
-            setSnackbarOpen(true);
-
             const signedTransaction = await sendTransaction(transaction, connection);
+            await connection.confirmTransaction(signedTransaction, 'confirmed');
 
-            setMessage('Transacción enviada, esperando confirmación...');
-            setSnackbarOpen(true);
-
-            await connection.confirmTransaction(signedTransaction, { commitment: 'confirmed', maxRetries: 3 });
-
-            setMessage(`Transacción exitosa: https://explorer.solana.com/tx/${signedTransaction}?cluster=mainnet-beta`);
+            setMessage(`Compra exitosa: https://explorer.solana.com/tx/${signedTransaction}?cluster=mainnet-beta`);
             setSnackbarOpen(true);
         } catch (error) {
-            console.error('Error durante la transacción:', error);
-            setMessage(`Error durante la transacción: ${error.message}`);
+            console.error('Error durante la compra:', error);
+            setMessage(`Error durante la compra: ${error.message}`);
             setSnackbarOpen(true);
         } finally {
             setLoading(false);
         }
-    }, [publicKey, recipient, amount, connection, sendTransaction]);
+    }, [publicKey, amount, connection, sendTransaction]);
 
     return (
         <Box className="flex flex-col items-center justify-center p-4 text-white bg-gray-800">
@@ -88,16 +78,6 @@ const EnviarSol = () => {
             <Button variant="contained" color="primary" onClick={handleConnect} disabled={connected}>
                 Conectar Billetera Phantom
             </Button>
-            <TextField
-                label="Dirección del receptor"
-                variant="outlined"
-                fullWidth
-                value={recipient}
-                onChange={(e) => setRecipient(e.target.value)}
-                margin="normal"
-                InputLabelProps={{ style: { color: 'white' } }}
-                InputProps={{ style: { color: 'white' } }}
-            />
             <TextField
                 label="Cantidad (SOL)"
                 variant="outlined"
@@ -111,11 +91,11 @@ const EnviarSol = () => {
             <Button
                 variant="contained"
                 color="primary"
-                onClick={handleSendSOL}
+                onClick={handleBuyToken}
                 disabled={!connected || loading}
                 sx={{ marginTop: 2 }}
             >
-                {loading ? <CircularProgress size={24} /> : 'Enviar SOL'}
+                {loading ? <CircularProgress size={24} /> : 'Comprar Token'}
             </Button>
             <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="info" sx={{ width: '100%' }}>
@@ -128,7 +108,7 @@ const EnviarSol = () => {
 
 const App = () => {
     const network = 'mainnet-beta'; // Cambiar a 'mainnet-beta' para mainnet
-    const endpoint = 'https://api.testnet.solana.com'; // O reemplazar con tu endpoint de QuickNode
+    const endpoint = 'https://silent-palpable-vineyard.solana-mainnet.quiknode.pro/f1167cb94d7a775a454bbba313ba69e9222ee3e7'; // O reemplazar con tu endpoint de QuickNode
 
     const wallets = [new PhantomWalletAdapter()];
 
@@ -136,7 +116,7 @@ const App = () => {
         <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>
-                    <EnviarSol />
+                    <CompraToken />
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>

@@ -5,7 +5,7 @@ import Tokenomics from "../components/tokenomics";
 import Roadmap from "../components/roadmap";
 import Footer from "../components/footer";
 import Connect from "../components/enviarsol";
-import Send from "../components/sendtoken"; // Importa el componente SolanaWalletComponent
+import Send from "../components/compratoken"; // Importa el componente SolanaWalletComponent
 
 const Desktop = () => {
   return (

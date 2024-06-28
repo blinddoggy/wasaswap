@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Button, TextField, Box, Typography, Snackbar, Alert, CircularProgress } from '@mui/material';
-import { useConnection, useWallet, ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { PublicKey, Transaction, Keypair } from '@solana/web3.js';
@@ -8,7 +9,9 @@ import * as SPL from '@solana/spl-token';
 import bs58 from 'bs58';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
-const EnviarSPLToken = () => {
+const TOKEN_PROGRAM_ID_2022 = new PublicKey('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
+
+const EnviarToken2022 = () => {
     const { connection } = useConnection();
     const { publicKey, sendTransaction, connect, connected } = useWallet();
     const [recipient, setRecipient] = useState('');
@@ -55,14 +58,18 @@ const EnviarSPLToken = () => {
                 connection,
                 payer,
                 mintAddress,
-                payer.publicKey
+                payer.publicKey,
+                undefined,
+                TOKEN_PROGRAM_ID_2022
             );
 
             const toTokenAccount = await SPL.getOrCreateAssociatedTokenAccount(
                 connection,
                 payer,
                 mintAddress,
-                receiver
+                receiver,
+                undefined,
+                TOKEN_PROGRAM_ID_2022
             );
 
             const transaction = new Transaction().add(
@@ -72,7 +79,7 @@ const EnviarSPLToken = () => {
                     payer.publicKey,
                     parseInt(amount) * 1000000, // Ajusta según la cantidad de decimales de tu token
                     [],
-                    SPL.TOKEN_PROGRAM_ID
+                    TOKEN_PROGRAM_ID_2022
                 )
             );
 
@@ -176,7 +183,7 @@ const EnviarTokenPage = () => {
         <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>
-                    <EnviarSPLToken />
+                    <EnviarToken2022 />
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>

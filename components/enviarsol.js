@@ -127,8 +127,8 @@ const EnviarSol = () => {
 };
 
 const App = () => {
-    const network = 'devnet'; // Cambiar a 'mainnet-beta' para mainnet
-    const endpoint = clusterApiUrl(network); // O reemplazar con tu endpoint de QuickNode
+    const network = 'mainnet-beta'; // Cambiar a 'mainnet-beta' para mainnet
+    const endpoint = 'https://silent-palpable-vineyard.solana-mainnet.quiknode.pro/f1167cb94d7a775a454bbba313ba69e9222ee3e7'; // O reemplazar con tu endpoint de QuickNode
 
     const wallets = [new PhantomWalletAdapter()];
 

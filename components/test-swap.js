@@ -21,7 +21,7 @@ const TestSwap = ({ className = '' }) => {
 
         setIsLoading(true);
         try {
-            const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+            const connection = new Connection('https://purple-tiniest-field.solana-mainnet.quiknode.pro/46c916c7e3b820ed947dad518d7295ce67907d1e/', 'confirmed');
             const recipientPublicKey = new PublicKey(recipient);
 
             const transaction = new Transaction().add(

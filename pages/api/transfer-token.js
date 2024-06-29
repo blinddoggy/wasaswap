@@ -1,4 +1,5 @@
 import { exec } from 'child_process';
+import path from 'path';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -12,8 +13,11 @@ export default async function handler(req, res) {
     const tokenMintAddress = 'asyvdzKqaHzopHa5XeNDN7ZYPDVEArD4ZfDZQt4sDHX';
     const amount = 1;
 
+    // Ruta al archivo .key
+    const keypairPath = path.resolve(process.cwd(), process.env.SPL_TOKEN_KEYPAIR_PATH);
+
     // Comando para ejecutar la transferencia
-    const command = `spl-token transfer ${tokenMintAddress} ${amount} ${recipient}`;
+    const command = `spl-token transfer ${tokenMintAddress} ${amount} ${recipient} --owner ${keypairPath}`;
 
     exec(command, (error, stdout, stderr) => {
         if (error) {

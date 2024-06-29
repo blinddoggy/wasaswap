@@ -1,13 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { Button, TextField, Box, Typography, Snackbar, Alert, CircularProgress } from '@mui/material';
-import { useConnection, useWallet, ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { useWallet, ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 import axios from 'axios';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 const EnviarToken = () => {
-    const { connection } = useConnection();
     const { publicKey, connect, connected } = useWallet();
     const [recipient, setRecipient] = useState('');
     const [message, setMessage] = useState('');

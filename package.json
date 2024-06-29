@@ -29,7 +29,6 @@
     "tailwindcss": "^3.1.8"
   },
   "scripts": {
-    "prebuild": "bash ./install-solana-cli.sh",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

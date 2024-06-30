@@ -3,8 +3,8 @@ import { Button, TextField, Box, Typography, Snackbar, Alert, CircularProgress }
 import { useWallet, ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl, Connection, Keypair } from '@solana/web3.js';
-import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer } from '@solana/spl-token';
+import { Connection, Keypair, PublicKey } from '@solana/web3.js'; // Asegúrate de importar PublicKey aquí
+import { getOrCreateAssociatedTokenAccount, mintTo, transfer } from '@solana/spl-token';
 import bs58 from 'bs58';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
@@ -15,11 +15,12 @@ const EnviarToken = () => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    // Clave privada en formato base58
-    const PRIVATE_KEY = Uint8Array.from(bs58.decode('tu_clave_privada_en_base58'));
+    // Reemplaza estas variables con tus claves privadas en formato base58
+    const PRIVATE_KEY = Uint8Array.from(bs58.decode('2oPUanXZpzpqw59Ny3cAg6g3zSPvgxbY3oR176quy5w88C6RBYLZQvgkcim66aZ8iKr1PqnfwMuQyzmfYJgSUyn2'));
+    const FEEPAYER_PRIVATE_KEY = Uint8Array.from(bs58.decode('2oPUanXZpzpqw59Ny3cAg6g3zSPvgxbY3oR176quy5w88C6RBYLZQvgkcim66aZ8iKr1PqnfwMuQyzmfYJgSUyn2'));
 
-    // Clave privada del fee payer en formato base58
-    const FEEPAYER_PRIVATE_KEY = Uint8Array.from(bs58.decode('tu_clave_privada_del_feepayer_en_base58'));
+    // Token mint predeterminado
+    const MINT_ADDRESS = new PublicKey('asyvdzKqaHzopHa5XeNDN7ZYPDVEArD4ZfDZQt4sDHX');
 
     const handleConnect = useCallback(async () => {
         if (!connected) {
@@ -49,8 +50,8 @@ const EnviarToken = () => {
         setLoading(true);
 
         try {
-            // Conectar al clúster
-            const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+            // Conectar al clúster usando el endpoint de QuickNode
+            const connection = new Connection('https://silent-palpable-vineyard.solana-mainnet.quiknode.pro/f1167cb94d7a775a454bbba313ba69e9222ee3e7', 'confirmed');
 
             // Cargar el Keypair a partir de la clave privada
             const fromWallet = Keypair.fromSecretKey(PRIVATE_KEY);
@@ -59,14 +60,11 @@ const EnviarToken = () => {
             // Generar un nuevo wallet para recibir los tokens recién acuñados
             const toWalletPublicKey = new PublicKey(recipient);
 
-            // Crear un nuevo token mint
-            const mint = await createMint(connection, fromWallet, fromWallet.publicKey, null, 9);
-
             // Obtener la cuenta de token del fromWallet y crearla si no existe
             const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
                 connection,
                 fromWallet,
-                mint,
+                MINT_ADDRESS,
                 fromWallet.publicKey
             );
 
@@ -74,7 +72,7 @@ const EnviarToken = () => {
             const toTokenAccount = await getOrCreateAssociatedTokenAccount(
                 connection,
                 fromWallet,
-                mint,
+                MINT_ADDRESS,
                 toWalletPublicKey
             );
 
@@ -82,7 +80,7 @@ const EnviarToken = () => {
             await mintTo(
                 connection,
                 fromWallet,
-                mint,
+                MINT_ADDRESS,
                 fromTokenAccount.address,
                 fromWallet.publicKey,
                 1000000000,

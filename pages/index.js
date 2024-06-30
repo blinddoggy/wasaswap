@@ -25,7 +25,7 @@ const Desktop = () => {
           <div className="w-full relative bg-black overflow-hidden flex flex-col items-center justify-start pt-5 px-0 pb-0 box-border opacity-[0.99] leading-[normal] tracking-[normal]">
             <FrameComponent1 />
             <FrameComponent2 />
-            <Connect />
+            
             <EnviarToken2022 />
             <Tokenomics />
             <Roadmap />

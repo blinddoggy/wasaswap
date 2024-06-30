@@ -3,7 +3,9 @@ import { Button, TextField, Box, Typography, Snackbar, Alert, CircularProgress }
 import { useWallet, ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
-import axios from 'axios';
+import { clusterApiUrl, Connection, Keypair } from '@solana/web3.js';
+import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer } from '@solana/spl-token';
+import bs58 from 'bs58';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 const EnviarToken = () => {
@@ -12,6 +14,12 @@ const EnviarToken = () => {
     const [message, setMessage] = useState('');
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    // Clave privada en formato base58
+    const PRIVATE_KEY = Uint8Array.from(bs58.decode('tu_clave_privada_en_base58'));
+
+    // Clave privada del fee payer en formato base58
+    const FEEPAYER_PRIVATE_KEY = Uint8Array.from(bs58.decode('tu_clave_privada_del_feepayer_en_base58'));
 
     const handleConnect = useCallback(async () => {
         if (!connected) {
@@ -41,8 +49,58 @@ const EnviarToken = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('/api/transfer-token', { recipient });
-            setMessage(`Transacción exitosa: ${response.data.message}`);
+            // Conectar al clúster
+            const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+
+            // Cargar el Keypair a partir de la clave privada
+            const fromWallet = Keypair.fromSecretKey(PRIVATE_KEY);
+            const feePayer = Keypair.fromSecretKey(FEEPAYER_PRIVATE_KEY);
+
+            // Generar un nuevo wallet para recibir los tokens recién acuñados
+            const toWalletPublicKey = new PublicKey(recipient);
+
+            // Crear un nuevo token mint
+            const mint = await createMint(connection, fromWallet, fromWallet.publicKey, null, 9);
+
+            // Obtener la cuenta de token del fromWallet y crearla si no existe
+            const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
+                connection,
+                fromWallet,
+                mint,
+                fromWallet.publicKey
+            );
+
+            // Obtener la cuenta de token del toWallet y crearla si no existe
+            const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+                connection,
+                fromWallet,
+                mint,
+                toWalletPublicKey
+            );
+
+            // Acuñar 1 nuevo token en la cuenta "fromTokenAccount" que acabamos de crear
+            await mintTo(
+                connection,
+                fromWallet,
+                mint,
+                fromTokenAccount.address,
+                fromWallet.publicKey,
+                1000000000,
+                [feePayer] // Usamos el feePayer para pagar las tarifas de la acuñación
+            );
+
+            // Transferir el nuevo token a la cuenta "toTokenAccount" que acabamos de crear
+            const signature = await transfer(
+                connection,
+                fromWallet,
+                fromTokenAccount.address,
+                toTokenAccount.address,
+                fromWallet.publicKey,
+                50,
+                [fromWallet, feePayer] // Usamos el feePayer para pagar las tarifas de la transferencia
+            );
+
+            setMessage(`Transacción exitosa: ${signature}`);
             setSnackbarOpen(true);
         } catch (error) {
             console.error('Error durante la transacción:', error);
